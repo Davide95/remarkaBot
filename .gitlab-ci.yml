@@ -1,0 +1,32 @@
+image: golang:1-alpine
+
+variables:
+  GOOS: linux
+  GOARCH: arm
+  GOARM: "7"
+
+stages:
+  - merge
+  - build
+
+check-formatting:
+  stage: merge
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  script:
+    - test -z $(gofmt -l .)
+
+lint:
+  stage: merge
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  script:
+    - go vet
+
+build:
+  stage: build
+  script:
+    - go build -o ./bin/
+  artifacts:
+    paths:
+      - bin
