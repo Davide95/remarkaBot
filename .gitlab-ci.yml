@@ -25,6 +25,13 @@ lint:
     - go list ./...
     - go vet ./...
 
+test:
+  stage: merge
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  script:
+    - go test ./...
+
 build:
   stage: build
   script:
