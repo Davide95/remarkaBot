@@ -29,9 +29,8 @@ test:
   stage: merge
   rules:
     - if: $CI_MERGE_REQUEST_ID
-  before_script:
-    - go get gotest.tools/gotestsum
   script:
+    - go get gotest.tools/gotestsum
     - gotestsum --junitfile report.xml --format testname ./bot/telegram
   artifacts:
     when: always
