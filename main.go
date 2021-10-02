@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"gitlab.com/mollofrollo/remarkabot/bot/telegram"
-	_ "gitlab.com/mollofrollo/remarkabot/bot/telegram"
 )
 
 func main() {
