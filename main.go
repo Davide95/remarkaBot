@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"gitlab.com/mollofrollo/remarkabot/bot/telegram"
+	_ "gitlab.com/mollofrollo/remarkabot/bot/telegram"
+)
 
 func main() {
-	fmt.Println("Hello World!")
+	bot := telegram.GetBot("dummy")
+	fmt.Println("Errors:", bot.GetError())
 }
