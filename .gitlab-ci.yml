@@ -21,7 +21,9 @@ lint:
   rules:
     - if: $CI_MERGE_REQUEST_ID
   script:
-    - go vet
+    - echo "Linting the following packages:"
+    - go list ./...
+    - go vet ./...
 
 build:
   stage: build
