@@ -1,7 +1,6 @@
 image: golang:1-alpine
 
 variables:
-  CODE_FOLDER: remarkabot/
   GOOS: linux
   GOARCH: arm
   GOARM: "7"
@@ -9,9 +8,6 @@ variables:
 stages:
   - merge
   - build
-
-before_script:
-  - cd $CODE_FOLDER
 
 check-formatting:
   stage: merge
@@ -30,7 +26,7 @@ lint:
 build:
   stage: build
   script:
-    - go build -o ../bin/
+    - go build -o ./bin/
   artifacts:
     paths:
       - bin
