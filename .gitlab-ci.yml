@@ -30,7 +30,7 @@ test:
   rules:
     - if: $CI_MERGE_REQUEST_ID
   script:
-    - go get gotest.tools/gotestsum
+    - go install gotest.tools/gotestsum@latest
     - gotestsum --junitfile report.xml --format testname ./bot/telegram
   artifacts:
     when: always
