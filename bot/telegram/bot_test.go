@@ -11,7 +11,7 @@ func TestGetError(t *testing.T) {
 		err: &err,
 	}
 
-	if !errors.Is(*bot.err, err) {
+	if !errors.Is(*bot.GetError(), err) {
 		t.Fatalf("'%v' should be equal to '%v'", *bot.err, err)
 	}
 }
