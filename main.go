@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"gitlab.com/mollofrollo/remarkabot/bot/telegram"
+	"gitlab.com/mollofrollo/remarkabot/bot"
 	"go.uber.org/zap"
 )
 
@@ -22,6 +22,6 @@ func main() {
 		logger.Fatal("env var TELEGRAM_TOKEN missing")
 	}
 
-	bot := telegram.GetBot(telegramToken)
+	bot := bot.GetBot(telegramToken)
 	fmt.Println("Errors:", bot.GetError())
 }

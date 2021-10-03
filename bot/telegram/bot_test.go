@@ -8,11 +8,11 @@ import (
 func TestGetError(t *testing.T) {
 	err := errors.New("dummy-error-placeholder")
 	bot := bot{
-		err: &err,
+		err: err,
 	}
 
-	if !errors.Is(*bot.GetError(), err) {
-		t.Fatalf("'%v' should be equal to '%v'", *bot.err, err)
+	if !errors.Is(bot.GetError(), err) {
+		t.Fatalf("'%v' should be equal to '%v'", bot.err, err)
 	}
 }
 

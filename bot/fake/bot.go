@@ -1,11 +1,11 @@
 package fake
 
-type bot struct{}
+type Bot struct{}
 
-func (bot *bot) GetError() *error {
+func (bot Bot) GetError() error {
 	return nil
 }
 
-func GetBot(token string) bot {
-	return bot{}
+func (bot Bot) GetUpdates(limit int, timeout int, allowedUpdates []string) {
+	return
 }
