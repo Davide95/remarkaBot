@@ -30,7 +30,7 @@ test:
     - go install gotest.tools/gotestsum@latest
     - ls /go/bin
   script:
-    - gotestsum --junitfile rspec.xml --format testname -- -cover ./bot/telegram
+    - gotestsum --junitfile rspec.xml --format testname -- -cover ./...
   artifacts:
     when: always
     paths:
