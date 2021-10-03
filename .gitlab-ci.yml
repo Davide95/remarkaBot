@@ -27,8 +27,8 @@ test:
   rules:
     - if: $CI_MERGE_REQUEST_ID
   before_script:
+    - apk add build-base
     - go install gotest.tools/gotestsum@latest
-    - ls /go/bin
   script:
     - gotestsum --junitfile rspec.xml --format testname -- -cover ./...
   artifacts:
