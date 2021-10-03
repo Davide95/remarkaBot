@@ -30,15 +30,25 @@ func main() {
 
 		for _, update := range updates {
 			logger.Info("New update received", zap.Int64("id", update.UpdateId))
-
 			message := update.Message
-			if message.Document.FileId == "" {
+			document := message.Document
+
+			if document.FileId == "" {
+				logger.Error("Message does not contain a document", zap.Int64("id", message.MessageId))
 				bot.SendMessage(message.Chat.Id, message.MessageId, "You can send me only documents")
 				bot.Commit(update.UpdateId)
 				continue
 			}
 
-			url := bot.GetFile(update.Message.Document.FileId)
+			mime := document.MimeType
+			if mime != "application/pdf" && mime != "application/epub+zip" {
+				logger.Error("Document is not a PDF or epub", zap.String("id", document.FileId))
+				bot.SendMessage(message.Chat.Id, message.MessageId, "Document is not a PDF or epub")
+				bot.Commit(update.UpdateId)
+				continue
+			}
+
+			url := bot.GetFile(document.FileId)
 			logger.Debug("File received", zap.String("URL", url.String()))
 			bot.Commit(update.UpdateId)
 		}
