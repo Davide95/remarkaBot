@@ -21,11 +21,11 @@ type update struct {
 
 type message struct {
 	MessageId int64    `json:"message_id"`
-	From      user     `json:",omitempty"`
 	Document  document `json:",omitempty"`
+	Chat      chat
 }
 
-type user struct {
+type chat struct {
 	Id int64
 }
 

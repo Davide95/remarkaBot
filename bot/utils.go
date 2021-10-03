@@ -24,14 +24,19 @@ func (bot *tgBot) isResponseOk(body []byte) {
 		return
 	}
 
+	bot.err = isResponseOk(body)
+}
+
+func isResponseOk(body []byte) error {
 	resp := baseResponse{}
 	err := json.Unmarshal(body, &resp)
 	if err != nil {
-		bot.err = err
-		return
+		return err
 	}
 
 	if !resp.Ok {
-		bot.err = errors.New(resp.Description)
+		return errors.New(resp.Description)
 	}
+
+	return nil
 }

@@ -32,11 +32,14 @@ func main() {
 			logger.Info("New update received", zap.Int64("id", update.UpdateId))
 
 			message := update.Message
-			if message.Document.FileId != "" {
-				url := bot.GetFile(update.Message.Document.FileId)
-				logger.Debug("File received", zap.String("URL", url.String()))
+			if message.Document.FileId == "" {
+				bot.SendMessage(message.Chat.Id, message.MessageId, "You can send me only documents")
+				bot.Commit(update.UpdateId)
+				continue
 			}
 
+			url := bot.GetFile(update.Message.Document.FileId)
+			logger.Debug("File received", zap.String("URL", url.String()))
 			bot.Commit(update.UpdateId)
 		}
 
