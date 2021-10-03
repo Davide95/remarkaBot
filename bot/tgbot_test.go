@@ -1,4 +1,4 @@
-package telegram
+package bot
 
 import (
 	"errors"
@@ -18,7 +18,7 @@ func TestGetError(t *testing.T) {
 
 func TestGetBot(t *testing.T) {
 	token := "dummy-token-placeholder"
-	bot := GetBot(token)
+	bot := tgBot{token: token}
 
 	if bot.token != token {
 		t.Fatalf("'%s' should be equal to '%s'", token, bot.token)

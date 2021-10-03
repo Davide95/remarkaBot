@@ -1,11 +1,11 @@
-package telegram
+package bot
 
 import "testing"
 
 func TestMakeQuery(t *testing.T) {
 	token := "dummy-token-placeholder"
 	methodName := "dummy-method-name-placeholder"
-	bot := GetBot(token)
+	bot := tgBot{token: token}
 
 	query := bot.makeQuery(methodName)
 	groundTruth := "https://api.telegram.org/bot" + token + "/" + methodName
@@ -17,7 +17,7 @@ func TestMakeQuery(t *testing.T) {
 func TestMakeQueryFile(t *testing.T) {
 	token := "dummy-token-placeholder"
 	filePath := "dummy-file-path-placeholder"
-	bot := GetBot(token)
+	bot := tgBot{token: token}
 
 	query := bot.makeQueryFile(filePath)
 	groundTruth := "https://api.telegram.org/file/bot" + token + "/" + filePath

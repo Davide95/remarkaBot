@@ -1,4 +1,4 @@
-package telegram
+package bot
 
 import (
 	"encoding/json"

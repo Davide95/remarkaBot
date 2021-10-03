@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"gitlab.com/mollofrollo/remarkabot/bot/telegram"
+	"gitlab.com/mollofrollo/remarkabot/bot"
 	"go.uber.org/zap"
 )
 
@@ -21,9 +21,8 @@ func main() {
 		logger.Fatal("env var TELEGRAM_TOKEN missing")
 	}
 
-	bot := telegram.GetBot(telegramToken)
-	allowedUpdates := []string{"message"}
-	bot.GetUpdates(1, 0, allowedUpdates)
+	bot := bot.GetBot(telegramToken)
+	bot.GetUpdates(1, 0)
 	if err := bot.GetError(); err != nil {
 		logger.Fatal(
 			"Error while fetching updates",

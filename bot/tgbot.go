@@ -1,18 +1,16 @@
-package telegram
-
-import "gitlab.com/mollofrollo/remarkabot/bot"
+package bot
 
 type tgBot struct {
 	err    error
 	token  string
-	offset int // TODO: cambiare il tipo
+	offset int64
 }
 
 func (bot *tgBot) GetError() error {
 	return bot.err
 }
 
-func GetBot(token string) bot.Bot {
+func GetBot(token string) Bot {
 	return &tgBot{
 		token: token,
 	}

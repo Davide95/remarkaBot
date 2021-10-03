@@ -1,4 +1,4 @@
-package telegram
+package bot
 
 import (
 	"encoding/json"
@@ -9,23 +9,18 @@ import (
 	"strconv"
 )
 
-func (bot *tgBot) GetUpdates(limit int, timeout int, allowedUpdates []string) {
-	if bot.err != nil {
-		return
-	}
-
-	resp := bot.getUpdatesRequest(limit, timeout, allowedUpdates)
-	bot.isResponseOk(resp)
-}
-
-func (bot *tgBot) getUpdatesRequest(limit int, timeout int, allowedUpdates []string) []byte {
+func (bot *tgBot) GetUpdates(limit int, timeout int) []update {
 	if bot.err != nil {
 		return nil
 	}
 
-	jsonedAllowedUpdates, err := json.Marshal(allowedUpdates)
-	if err != nil {
-		bot.err = err
+	resp := bot.getUpdatesRequest(limit, timeout)
+	bot.isResponseOk(resp)
+	return bot.getUpdatesParse(resp)
+}
+
+func (bot *tgBot) getUpdatesRequest(limit int, timeout int) []byte {
+	if bot.err != nil {
 		return nil
 	}
 
@@ -33,7 +28,7 @@ func (bot *tgBot) getUpdatesRequest(limit int, timeout int, allowedUpdates []str
 		"offset":          {},
 		"limit":           {strconv.Itoa(limit)},
 		"timeout":         {strconv.Itoa(timeout)},
-		"allowed_updates": {string(jsonedAllowedUpdates)},
+		"allowed_updates": {"message"}, // Only new messages are currently supported
 	}
 
 	resp, err := http.PostForm(
@@ -62,4 +57,19 @@ func (bot *tgBot) getUpdatesRequest(limit int, timeout int, allowedUpdates []str
 	}
 
 	return body
+}
+
+func (bot *tgBot) getUpdatesParse(body []byte) []update {
+	resp := getUpdatesResponse{}
+	if bot.err != nil {
+		return nil
+	}
+
+	err := json.Unmarshal(body, &resp)
+	if err != nil {
+		bot.err = err
+		return nil
+	}
+
+	return resp.Result
 }
