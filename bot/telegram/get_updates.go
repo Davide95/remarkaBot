@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func (bot *bot) GetUpdates(limit int, timeout int, allowedUpdates []string) {
+func (bot *tgBot) GetUpdates(limit int, timeout int, allowedUpdates []string) {
 	if bot.err != nil {
 		return
 	}
@@ -18,7 +18,7 @@ func (bot *bot) GetUpdates(limit int, timeout int, allowedUpdates []string) {
 	bot.isResponseOk(resp)
 }
 
-func (bot *bot) getUpdatesRequest(limit int, timeout int, allowedUpdates []string) []byte {
+func (bot *tgBot) getUpdatesRequest(limit int, timeout int, allowedUpdates []string) []byte {
 	if bot.err != nil {
 		return nil
 	}

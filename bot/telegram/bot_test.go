@@ -7,7 +7,7 @@ import (
 
 func TestGetError(t *testing.T) {
 	err := errors.New("dummy-error-placeholder")
-	bot := bot{
+	bot := tgBot{
 		err: err,
 	}
 
