@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -23,5 +22,12 @@ func main() {
 	}
 
 	bot := bot.GetBot(telegramToken)
-	fmt.Println("Errors:", bot.GetError())
+	allowedUpdates := []string{"message"}
+	bot.GetUpdates(1, 0, allowedUpdates)
+	if err := bot.GetError(); err != nil {
+		logger.Fatal(
+			"Error while fetching updates", 
+			zap.String("error", err.Error()),
+		)
+	}
 }

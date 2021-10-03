@@ -15,7 +15,7 @@ func (bot *bot) GetUpdates(limit int, timeout int, allowedUpdates []string) {
 	}
 
 	resp := bot.getUpdatesRequest(limit, timeout, allowedUpdates)
-	_ = resp
+	bot.isResponseOk(resp)
 }
 
 func (bot *bot) getUpdatesRequest(limit int, timeout int, allowedUpdates []string) []byte {
@@ -47,7 +47,7 @@ func (bot *bot) getUpdatesRequest(limit int, timeout int, allowedUpdates []strin
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
+	if status := resp.StatusCode; status != 200 && status != 401 {
 		bot.err = fmt.Errorf(
 			"Telegram API /GetUpdates returned wrong status code: (%d)",
 			resp.StatusCode,
