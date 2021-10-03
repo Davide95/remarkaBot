@@ -14,6 +14,6 @@ func TestGetFileParse(t *testing.T) {
 	bot.getFileParse(get_file_fake_data)
 
 	if err := bot.GetError(); err != nil {
-		t.Fatalf("get_file.json not parsed correctly")
+		t.Fatal("get_file.json not parsed correctly")
 	}
 }
