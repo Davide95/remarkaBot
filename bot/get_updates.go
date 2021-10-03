@@ -25,10 +25,12 @@ func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 	}
 
 	params := url.Values{
-		"offset":          {strconv.FormatInt(bot.offset, 10)},
 		"limit":           {strconv.Itoa(limit)},
 		"timeout":         {"0"},
 		"allowed_updates": {"message"}, // Only new messages are currently supported
+	}
+	if bot.offset != 0 {
+		params.Add("offset", strconv.FormatInt(bot.offset, 10))
 	}
 
 	resp, err := http.PostForm(
