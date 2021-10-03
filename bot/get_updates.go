@@ -72,7 +72,7 @@ func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 
 	if status := resp.StatusCode; status != 200 && status != 401 {
 		bot.err = fmt.Errorf(
-			"Telegram API /GetUpdates returned wrong status code: (%d)",
+			"Telegram API /getUpdates returned wrong status code: (%d)",
 			resp.StatusCode,
 		)
 		return nil
@@ -81,9 +81,7 @@ func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		bot.err = err
-		return nil
 	}
-
 	return body
 }
 

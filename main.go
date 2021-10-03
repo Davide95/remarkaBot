@@ -25,11 +25,18 @@ func main() {
 	bot := bot.GetBot(telegramToken)
 
 	const maxUpdates = 100
-	for updates := bot.GetUpdates(maxUpdates); len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
+	for updates := bot.GetUpdates(maxUpdates); bot.GetError() == nil && len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
 		logger.Info("Fetching new updates")
 
 		for _, update := range updates {
 			logger.Info("New update received", zap.Int64("id", update.UpdateId))
+
+			message := update.Message
+			if message.Document.FileId != "" {
+				url := bot.GetFile(update.Message.Document.FileId)
+				logger.Debug("File received", zap.String("URL", url.String()))
+			}
+
 			bot.Commit(update.UpdateId)
 		}
 

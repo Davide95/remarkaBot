@@ -1,5 +1,7 @@
 package bot
 
 func (bot *tgBot) Commit(offset int64) {
-	bot.offset = offset + 1
+	if bot.err == nil {
+		bot.offset = offset + 1
+	}
 }
