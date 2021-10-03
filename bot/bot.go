@@ -2,5 +2,6 @@ package bot
 
 type Bot interface {
 	GetError() error
-	GetUpdates(limit int, timeout int) []update
+	GetUpdates(limit int) []update
+	Commit(offset int64)
 }

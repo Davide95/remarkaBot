@@ -17,7 +17,11 @@ type message struct {
 }
 
 type user struct {
+	Id int64
 }
 
 type document struct {
+	FileId   string `json:"file_id"`
+	FileName string `json:"file_name,omitempty"`
+	MimeType string `json:"mime_type,omitempty"`
 }

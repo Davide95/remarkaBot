@@ -9,25 +9,25 @@ import (
 	"strconv"
 )
 
-func (bot *tgBot) GetUpdates(limit int, timeout int) []update {
+func (bot *tgBot) GetUpdates(limit int) []update {
 	if bot.err != nil {
 		return nil
 	}
 
-	resp := bot.getUpdatesRequest(limit, timeout)
+	resp := bot.getUpdatesRequest(limit)
 	bot.isResponseOk(resp)
 	return bot.getUpdatesParse(resp)
 }
 
-func (bot *tgBot) getUpdatesRequest(limit int, timeout int) []byte {
+func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 	if bot.err != nil {
 		return nil
 	}
 
 	params := url.Values{
-		"offset":          {},
+		"offset":          {strconv.FormatInt(bot.offset, 10)},
 		"limit":           {strconv.Itoa(limit)},
-		"timeout":         {strconv.Itoa(timeout)},
+		"timeout":         {"0"},
 		"allowed_updates": {"message"}, // Only new messages are currently supported
 	}
 
