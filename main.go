@@ -25,11 +25,21 @@ func main() {
 	bot := bot.GetBot(telegramToken)
 
 	const maxUpdates = 100
-	for updates := bot.GetUpdates(maxUpdates); len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
+	for updates := bot.GetUpdates(maxUpdates); bot.GetError() == nil && len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
 		logger.Info("Fetching new updates")
 
 		for _, update := range updates {
 			logger.Info("New update received", zap.Int64("id", update.UpdateId))
+
+			message := update.Message
+			if message.Document.FileId == "" {
+				bot.SendMessage(message.Chat.Id, message.MessageId, "You can send me only documents")
+				bot.Commit(update.UpdateId)
+				continue
+			}
+
+			url := bot.GetFile(update.Message.Document.FileId)
+			logger.Debug("File received", zap.String("URL", url.String()))
 			bot.Commit(update.UpdateId)
 		}
 

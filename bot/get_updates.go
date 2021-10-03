@@ -9,6 +9,32 @@ import (
 	"strconv"
 )
 
+type getUpdatesResponse struct {
+	Result []update
+}
+
+type update struct {
+	UpdateId      int64   `json:"update_id"`
+	Message       message `json:",omitempty"`
+	EditedMessage message `json:"edited_message,omitempty"`
+}
+
+type message struct {
+	MessageId int64    `json:"message_id"`
+	Document  document `json:",omitempty"`
+	Chat      chat
+}
+
+type chat struct {
+	Id int64
+}
+
+type document struct {
+	FileId   string `json:"file_id"`
+	FileName string `json:"file_name,omitempty"`
+	MimeType string `json:"mime_type,omitempty"`
+}
+
 func (bot *tgBot) GetUpdates(limit int) []update {
 	if bot.err != nil {
 		return nil
@@ -46,7 +72,7 @@ func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 
 	if status := resp.StatusCode; status != 200 && status != 401 {
 		bot.err = fmt.Errorf(
-			"Telegram API /GetUpdates returned wrong status code: (%d)",
+			"Telegram API /getUpdates returned wrong status code: (%d)",
 			resp.StatusCode,
 		)
 		return nil
@@ -55,9 +81,7 @@ func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		bot.err = err
-		return nil
 	}
-
 	return body
 }
 
