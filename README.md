@@ -6,7 +6,17 @@ Project status: Work In Progress (stay tuned :P)
 
 ## Installation
 
-...
+### Create your Telegram bot
+
+First, you need a Telegram bot.
+To be responsible for who can send you documents, it can receive them only from groups.
+
+Create it using ``@BotFather``. 
+Please enable ``/setjoingroups`` and add the bot to the desired groups (or create a new one).
+
+``/setprivacy `` disabled could also be useful to send documents to it without mentioning it inside the message.
+
+After adding it to the desired groups, disable ``/setjoingroups``.
 
 ## Usage
 
