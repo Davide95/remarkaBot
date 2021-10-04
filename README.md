@@ -18,10 +18,6 @@ Please enable ``/setjoingroups`` and add the bot to the desired groups (or creat
 
 After adding it to the desired groups, disable ``/setjoingroups``.
 
-## Usage
-
-...
-
 ## Contributing
 
 Every contribution is welcomed. 
