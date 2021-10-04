@@ -30,12 +30,22 @@ func main() {
 
 		for _, update := range updates {
 			logger.Info("New update received", zap.Int64("id", update.UpdateId))
+
 			message := update.Message
+			chat := message.Chat
+
+			if chat.Type == "private" {
+				logger.Warn("Private messages received and discarded", zap.Int64("id", message.MessageId))
+				bot.SendMessage(chat.Id, message.MessageId, "Hey!\nAdd me to a group and send me documents to see them in your Remarkable!")
+				bot.Commit(update.UpdateId)
+				continue
+			}
+
 			document := message.Document
 
 			if document.FileId == "" {
 				logger.Error("Message does not contain a document", zap.Int64("id", message.MessageId))
-				bot.SendMessage(message.Chat.Id, message.MessageId, "You can send me only documents")
+				bot.SendMessage(chat.Id, message.MessageId, "You can send me only documents")
 				bot.Commit(update.UpdateId)
 				continue
 			}

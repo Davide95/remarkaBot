@@ -26,7 +26,8 @@ type message struct {
 }
 
 type chat struct {
-	Id int64
+	Id   int64
+	Type string
 }
 
 type document struct {
@@ -53,7 +54,7 @@ func (bot *tgBot) getUpdatesRequest(limit int) []byte {
 	params := url.Values{
 		"limit":           {strconv.Itoa(limit)},
 		"timeout":         {"0"},
-		"allowed_updates": {"message"}, // Only new messages are currently supported
+		"allowed_updates": {`["message", "channel_post"]`}, // Only new messages are currently supported
 	}
 	if bot.offset != 0 {
 		params.Add("offset", strconv.FormatInt(bot.offset, 10))
