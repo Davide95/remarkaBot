@@ -66,10 +66,7 @@ func main() {
 	}
 
 	if err := bot.GetError(); err != nil {
-		logger.Fatal(
-			"Error while fetching updates",
-			zap.String("error", err.Error()),
-		)
+		logger.Fatal(err.Error())
 	}
 
 	logger.Info("RemarkaBot ended")

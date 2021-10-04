@@ -41,14 +41,14 @@ func (bot *tgBot) getFileRequest(fileId string) []byte {
 	)
 
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /getFile request failed: %w", err)
 		return nil
 	}
 	defer resp.Body.Close()
 
 	if status := resp.StatusCode; status != 200 && status != 401 {
 		bot.err = fmt.Errorf(
-			"Telegram API /getFile returned wrong status code: (%d)",
+			"Telegram API /getFile returned wrong status code: %d",
 			resp.StatusCode,
 		)
 		return nil
@@ -56,7 +56,7 @@ func (bot *tgBot) getFileRequest(fileId string) []byte {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /getFile body error: %w", err)
 	}
 	return body
 }
@@ -69,7 +69,7 @@ func (bot *tgBot) getFileParse(body []byte) url.URL {
 
 	err := json.Unmarshal(body, &resp)
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /getFile json parsing error: %w", err)
 		return url.URL{}
 	}
 
@@ -77,7 +77,7 @@ func (bot *tgBot) getFileParse(body []byte) url.URL {
 		bot.makeQueryFile(resp.Result.FilePath),
 	)
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /getFile file URL parsing error: %w", err)
 	}
 
 	return *url
