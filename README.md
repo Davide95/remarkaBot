@@ -30,7 +30,7 @@ If you spot any bug, opening an issue could be useful to discuss it.
 If possible, it would be great to have a corresponding merge request with a unit test to spot the issue easily and to avoid any regression in the future.
 
 ## Acknowledgment
-Main contributors:
+Contributors:
 * Mantainer: Davide Riva <driva95[at]protonmail[dot]com>
 * Logo creator: Laura Nesossi <laura_nesossi[at]protonmail[dot]com>
 
