@@ -16,14 +16,14 @@ type file struct {
 	FilePath string `json:"file_path,omitempty"`
 }
 
-func (bot *tgBot) GetFile(fileId string) url.URL {
+func (bot *tgBot) GetFile(fileId string) string {
 	if bot.err != nil {
-		return url.URL{}
+		return ""
 	}
 
 	resp := bot.getFileRequest(fileId)
 	bot.isResponseOk(resp)
-	return bot.getFileParse(resp)
+	return bot.makeQueryFile(bot.getFileParse(resp))
 }
 
 func (bot *tgBot) getFileRequest(fileId string) []byte {
@@ -61,24 +61,17 @@ func (bot *tgBot) getFileRequest(fileId string) []byte {
 	return body
 }
 
-func (bot *tgBot) getFileParse(body []byte) url.URL {
+func (bot *tgBot) getFileParse(body []byte) string {
 	resp := getFileResponse{}
 	if bot.err != nil {
-		return url.URL{}
+		return ""
 	}
 
 	err := json.Unmarshal(body, &resp)
 	if err != nil {
 		bot.err = fmt.Errorf("Telegram API /getFile json parsing error: %w", err)
-		return url.URL{}
+		return ""
 	}
 
-	url, err := url.ParseRequestURI(
-		bot.makeQueryFile(resp.Result.FilePath),
-	)
-	if err != nil {
-		bot.err = fmt.Errorf("Telegram API /getFile file URL parsing error: %w", err)
-	}
-
-	return *url
+	return resp.Result.FilePath
 }

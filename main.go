@@ -5,13 +5,14 @@ import (
 	"os"
 
 	"gitlab.com/mollofrollo/remarkabot/bot"
+	"gitlab.com/mollofrollo/remarkabot/remarkable"
 	"go.uber.org/zap"
 )
 
 func main() {
 	logger, err := zap.NewDevelopment()
 	if err != nil {
-		log.Fatalf("Unable to initialize zap logger: %v", err)
+		log.Fatalf("Unable to initialize zap logger: %w", err)
 	}
 	defer logger.Sync()
 
@@ -30,7 +31,7 @@ func main() {
 	bot := bot.GetBot(telegramToken)
 
 	const maxUpdates = 100
-	for updates := bot.GetUpdates(maxUpdates); bot.GetError() == nil && len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
+	for updates := bot.GetUpdates(maxUpdates); len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
 		logger.Info("Fetching new updates")
 
 		for _, update := range updates {
@@ -64,7 +65,19 @@ func main() {
 			}
 
 			url := bot.GetFile(document.FileId)
-			logger.Debug("File received", zap.String("URL", url.String()))
+			if err := bot.GetError(); err != nil {
+				logger.Fatal(err.Error())
+			}
+
+			err = remarkable.DownloadDocument(url, destinationFolder)
+			if err != nil {
+				logger.Fatal(
+					"Error while downloading document",
+					zap.String("url", url),
+					zap.Error(err),
+				)
+			}
+
 			bot.Commit(update.UpdateId)
 		}
 
