@@ -10,15 +10,19 @@ import (
 	"github.com/google/uuid"
 )
 
-func DownloadDocument(from string, destination string) error {
+func DownloadDocument(from string, mime string, destination string) error {
 	resp, err := http.Get(from)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
 
-	doc := filepath.Join(from, uuid.New().String())
-	out, err := os.Create(fmt.Sprintf("%s.pdf", doc))
+	doc := filepath.Join(
+		from, 
+		fmt.Sprintf("%s.%s", uuid.New().String(), extension)
+	)
+
+	out, err := os.Create(doc)
 	if err != nil {
 		return err
 	}
@@ -26,7 +30,7 @@ func DownloadDocument(from string, destination string) error {
 
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
-		os.Remove("output.txt")
+		os.Remove(doc)
 	}
 
 	return err
