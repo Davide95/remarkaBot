@@ -12,7 +12,7 @@ import (
 func main() {
 	logger, err := zap.NewDevelopment()
 	if err != nil {
-		log.Fatalf("Unable to initialize zap logger: %w", err)
+		log.Fatalf("Unable to initialize zap logger: %s", err.Error())
 	}
 	defer logger.Sync()
 
@@ -69,7 +69,7 @@ func main() {
 				logger.Fatal(err.Error())
 			}
 
-			err = remarkable.DownloadDocument(url, destinationFolder)
+			err = remarkable.DownloadDocument(url, mime, destinationFolder)
 			if err != nil {
 				logger.Fatal(
 					"Error while downloading document",
