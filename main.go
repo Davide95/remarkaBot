@@ -22,6 +22,11 @@ func main() {
 		logger.Fatal("env var TELEGRAM_TOKEN missing")
 	}
 
+	destinationFolder, present := os.LookupEnv("DESTINATION_FOLDER")
+	if !present {
+		destinationFolder = "/home/root/.local/share/remarkable/xochitl/"
+	}
+
 	bot := bot.GetBot(telegramToken)
 
 	const maxUpdates = 100
