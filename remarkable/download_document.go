@@ -10,19 +10,35 @@ import (
 	"github.com/google/uuid"
 )
 
-func DownloadDocument(from string, mime string, destination string) error {
+
+func InsertDocument(from string, mime string, destination string) error {
+	var extension string
+	switch mime {
+	case "application/pdf":
+		extension = "pdf"
+	case "application/epub+zip":
+		extension = "epub"
+	default:
+		panic(fmt.Sprintf("MimeType of %s not supported: %s", from, mime))
+	}
+
+	basePath := filepath.Join(
+		from,
+		uuid.New().String(),
+	)
+	docPath := fmt.Sprintf("%s.%s", basePath, extension)
+
+	return downloadDocument(from, docPath)
+}
+
+func downloadDocument(from string, to string) error {
 	resp, err := http.Get(from)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
 
-	doc := filepath.Join(
-		from, 
-		fmt.Sprintf("%s.%s", uuid.New().String(), extension)
-	)
-
-	out, err := os.Create(doc)
+	out, err := os.Create(to)
 	if err != nil {
 		return err
 	}
@@ -30,7 +46,7 @@ func DownloadDocument(from string, mime string, destination string) error {
 
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
-		os.Remove(doc)
+		os.Remove(to)
 	}
 
 	return err

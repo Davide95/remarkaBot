@@ -69,7 +69,7 @@ func main() {
 				logger.Fatal(err.Error())
 			}
 
-			err = remarkable.DownloadDocument(url, mime, destinationFolder)
+			err = remarkable.InsertDocument(url, mime, destinationFolder)
 			if err != nil {
 				logger.Fatal(
 					"Error while downloading document",
