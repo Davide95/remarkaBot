@@ -69,13 +69,9 @@ func main() {
 				logger.Fatal(err.Error())
 			}
 
-			err = remarkable.InsertDocument(url, mime, destinationFolder)
+			err = remarkable.InsertDocument(url, mime, document.FileName, destinationFolder)
 			if err != nil {
-				logger.Fatal(
-					"Error while downloading document",
-					zap.String("url", url),
-					zap.Error(err),
-				)
+				logger.Fatal(err.Error())
 			}
 
 			bot.Commit(update.UpdateId)
