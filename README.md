@@ -6,17 +6,12 @@ Project status: Work In Progress (stay tuned :P)
 
 ## Installation
 
-### Create your Telegram bot
+In order to user `RemarkaBot` you need a Telegram Bot, you can create one using [BotFather](https://t.me/BotFather).  
+For security reasons it's crucial that you are in control of the groups `RemarkaBot` accepts files from. To make sure nobody adds your `RemarkaBot` instance to some random (potentially malicious) groups we reccomend to block all group invitations after having added the bot to your groups. You can simply do that by sending `/setjoingroups` to `BotFather` and follow instructions. 
+From now on to add `RemarkaBot` to other groups you must unlock group invitations and lock it again.   
+Leaving the setting unlocked might be tempting, but **please** don't do that.
 
-First, you need a Telegram bot.
-To be responsible for who can send you documents, it can receive them only from groups.
-
-Create it using ``@BotFather``. 
-Please enable ``/setjoingroups`` and add the bot to the desired groups (or create a new one).
-
-``/setprivacy `` disabled could also be useful to send documents to it without mentioning it inside the message.
-
-After adding it to the desired groups, disable ``/setjoingroups``.
+Consider to disable [Privacy Mode](https://core.telegram.org/bots#privacy-mode) to be able to use `RemarkaBot` without having to mention him.
 
 ## Contributing
 
