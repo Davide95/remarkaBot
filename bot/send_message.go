@@ -26,14 +26,14 @@ func (bot *tgBot) SendMessage(chatId int64, replyToMessageId int64, text string)
 	)
 
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /sendMessage request failed: %w", err)
 		return nil
 	}
 	defer resp.Body.Close()
 
 	if status := resp.StatusCode; status != 200 && status != 401 {
 		bot.err = fmt.Errorf(
-			"Telegram API /sendMessage returned wrong status code: (%d)",
+			"Telegram API /sendMessage returned wrong status code: %d",
 			resp.StatusCode,
 		)
 		return nil

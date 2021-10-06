@@ -16,14 +16,14 @@ type file struct {
 	FilePath string `json:"file_path,omitempty"`
 }
 
-func (bot *tgBot) GetFile(fileId string) url.URL {
+func (bot *tgBot) GetFile(fileId string) string {
 	if bot.err != nil {
-		return url.URL{}
+		return ""
 	}
 
 	resp := bot.getFileRequest(fileId)
 	bot.isResponseOk(resp)
-	return bot.getFileParse(resp)
+	return bot.makeQueryFile(bot.getFileParse(resp))
 }
 
 func (bot *tgBot) getFileRequest(fileId string) []byte {
@@ -41,14 +41,14 @@ func (bot *tgBot) getFileRequest(fileId string) []byte {
 	)
 
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /getFile request failed: %w", err)
 		return nil
 	}
 	defer resp.Body.Close()
 
 	if status := resp.StatusCode; status != 200 && status != 401 {
 		bot.err = fmt.Errorf(
-			"Telegram API /getFile returned wrong status code: (%d)",
+			"Telegram API /getFile returned wrong status code: %d",
 			resp.StatusCode,
 		)
 		return nil
@@ -56,29 +56,22 @@ func (bot *tgBot) getFileRequest(fileId string) []byte {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		bot.err = err
+		bot.err = fmt.Errorf("Telegram API /getFile body error: %w", err)
 	}
 	return body
 }
 
-func (bot *tgBot) getFileParse(body []byte) url.URL {
+func (bot *tgBot) getFileParse(body []byte) string {
 	resp := getFileResponse{}
 	if bot.err != nil {
-		return url.URL{}
+		return ""
 	}
 
 	err := json.Unmarshal(body, &resp)
 	if err != nil {
-		bot.err = err
-		return url.URL{}
+		bot.err = fmt.Errorf("Telegram API /getFile json parsing error: %w", err)
+		return ""
 	}
 
-	url, err := url.ParseRequestURI(
-		bot.makeQueryFile(resp.Result.FilePath),
-	)
-	if err != nil {
-		bot.err = err
-	}
-
-	return *url
+	return resp.Result.FilePath
 }
