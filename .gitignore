@@ -10,3 +10,9 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Artifact should be removed
+remarkabot
+
+# Env vars should not be committed by mistake
+systemd/.env
