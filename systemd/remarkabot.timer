@@ -1,0 +1,11 @@
+[Unit]
+Description=Fetch your documents from Telegram
+After=network-online.target
+
+[Timer]
+Persistent=true
+OnBootSec=1min
+OnUnitActiveSec=1min
+
+[Install]
+WantedBy=timers.target
