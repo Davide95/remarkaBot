@@ -20,7 +20,7 @@ func InsertDocument(from string, mime string, visibleName string, destination st
 	}
 
 	basePath := filepath.Join(
-		from,
+		destination,
 		uuid.New().String(),
 	)
 	docPath := fmt.Sprintf("%s.%s", basePath, extension)
