@@ -41,7 +41,7 @@ test:
 build:
   stage: build
   only:
-    - master
+    - main
   variables:
     GOOS: linux
     GOARCH: arm
