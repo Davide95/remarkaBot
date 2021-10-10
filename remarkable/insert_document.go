@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -34,7 +35,7 @@ func InsertDocument(from string, mime string, visibleName string, destination st
 		)
 	}
 
-	if err := insertMetadata(visibleName, metadataPath); err != nil {
+	if err := insertMetadata(visibleName, time.Now(), metadataPath); err != nil {
 		os.Remove(docPath)
 		os.Remove(metadataPath)
 		return fmt.Errorf(

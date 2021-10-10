@@ -25,20 +25,18 @@ func init() {
 	}
 }
 
-func insertMetadata(visibleName string, to string) error {
+func insertMetadata(visibleName string, lastModified time.Time, to string) error {
 	out, err := os.Create(to)
 	if err != nil {
 		return err
 	}
 	defer out.Close()
 
-	now := time.Now()
 	vars := metadataVars{
-		LastModified: now.UnixNano() / 1000000,
+		LastModified: lastModified.UnixNano() / 1000000,
 		VisibleName:  visibleName,
 	}
 
-	// TODO: testare escaping caratteri speciali
 	err = metadataTemplate.Execute(out, vars)
 	if err != nil {
 		panic(err)
