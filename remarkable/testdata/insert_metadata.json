@@ -1,6 +1,6 @@
 {
     "deleted": false,
-    "lastModified": "{{- .LastModified -}}",
+    "lastModified": "-6795364578871",
     "lastOpened": "0",
     "lastOpenedPage": 0,
     "metadatamodified": false,
@@ -10,5 +10,5 @@
     "synced": false,
     "type": "DocumentType",
     "version": 1,
-    "visibleName": "{{- js .VisibleName -}}"
+    "visibleName": "placeholder-with-special-char-\""
 }
