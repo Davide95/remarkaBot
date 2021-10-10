@@ -9,6 +9,6 @@
     "pinned": false,
     "synced": false,
     "type": "DocumentType",
-    "version": 0,
+    "version": 1,
     "visibleName": "{{- js .VisibleName -}}"
 }
