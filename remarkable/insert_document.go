@@ -26,6 +26,7 @@ func InsertDocument(from string, mime string, visibleName string, destination st
 	)
 	docPath := fmt.Sprintf("%s.%s", basePath, extension)
 	metadataPath := fmt.Sprintf("%s.%s", basePath, "metadata")
+	contentPath := fmt.Sprintf("%s.%s", basePath, "content")
 
 	if err := downloadDocument(from, docPath); err != nil {
 		os.Remove(docPath)
@@ -41,6 +42,16 @@ func InsertDocument(from string, mime string, visibleName string, destination st
 		return fmt.Errorf(
 			"Metadata file %s not created: %w",
 			metadataPath, err,
+		)
+	}
+
+	if err := insertContent(extension, contentPath); err != nil {
+		os.Remove(docPath)
+		os.Remove(metadataPath)
+		os.Remove(contentPath)
+		return fmt.Errorf(
+			"Content file %s not created: %w",
+			contentPath, err,
 		)
 	}
 
