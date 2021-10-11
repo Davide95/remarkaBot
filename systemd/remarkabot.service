@@ -4,7 +4,7 @@ Wants=remarkabot.timer
 
 [Service]
 EnvironmentFile=/home/root/.config/remarkabot/.env
-ExecStart=/opt/remarkabot/remarkabot
+ExecStart=/opt/remarkabot/run.sh
 
 [Install]
 WantedBy=multi-user.target
