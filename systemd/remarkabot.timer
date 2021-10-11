@@ -5,8 +5,8 @@ ConditionPathExists=/opt/remarkabot/remarkabot
 
 [Timer]
 Persistent=true
-OnBootSec=1min
-OnUnitActiveSec=1min
+OnBootSec=10min
+OnUnitActiveSec=10min
 
 [Install]
 WantedBy=timers.target
