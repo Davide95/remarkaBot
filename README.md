@@ -2,8 +2,6 @@
 
 Fetch your documents from Telegram to your Remarkable 2!
 
-Project status: v1
-
 ## Installation
 
 ### Telegram
