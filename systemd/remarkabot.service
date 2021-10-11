@@ -3,7 +3,7 @@ Description=Fetch your documents from Telegram
 Wants=remarkabot.timer
 
 [Service]
-EnvironmentFile=$HOME/.config/remarkabot/.env
+EnvironmentFile=/home/root/.config/remarkabot/.env
 ExecStart=/opt/remarkabot/remarkabot
 
 [Install]
