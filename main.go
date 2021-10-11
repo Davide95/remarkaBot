@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"runtime"
 
 	"gitlab.com/mollofrollo/remarkabot/bot"
 	"gitlab.com/mollofrollo/remarkabot/remarkable"
@@ -32,6 +33,7 @@ func main() {
 
 	const maxConcUpdates = 1
 	for updates := bot.GetUpdates(maxConcUpdates); len(updates) > 0; updates = bot.GetUpdates(maxConcUpdates) {
+		runtime.GC()
 		logger.Info("Fetching new updates")
 
 		for _, update := range updates {
