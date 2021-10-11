@@ -2,7 +2,7 @@
 
 Fetch your documents from Telegram to your Remarkable 2!
 
-Project status: Work In Progress (stay tuned :P)
+This program will fetch new documents every 10 minutes for you :)
 
 ## Installation
 
@@ -15,7 +15,20 @@ Leaving the setting unlocked might be tempting, but **please** don't do that.
 
 Consider to disable `/setprivacy` to send documents to `RemarkaBot` without having to mention him.
 
+### Remarkabot
+
+You first need to connect your Remarkable 2 to your PC to allow an SSH connection (see https://support.remarkable.com/hc/en-us/articles/360002662557-Help to understand how).
+You also need to have the Go compiler installed on your PC.
+
+Steps to install it:
+* `git clone https://gitlab.com/mollofrollo/remarkabot.git`
+* `sh scripts/install.sh $RM2IP`, where `$RM2IP` is the IP of the connected Remarkable 2
+
+Each time the device is updated, you need to reinstall Remarkabot.
+Grab the opportunity to update the repo first (`git pull`).
+
 ## Acknowledgment
+
 Contributors:
 * Davide Riva <driva95[at]protonmail[dot]com> (Mantainer)
 * Laura Nesossi <laura_nesossi[at]protonmail[dot]com> (logo creator)
