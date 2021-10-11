@@ -1,0 +1,12 @@
+[Unit]
+Description=Fetch your documents from Telegram
+After=network-online.target
+ConditionPathExists=/opt/remarkabot/remarkabot
+
+[Timer]
+Persistent=true
+OnBootSec=10min
+OnUnitActiveSec=10min
+
+[Install]
+WantedBy=timers.target

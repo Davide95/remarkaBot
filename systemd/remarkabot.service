@@ -1,0 +1,11 @@
+[Unit]
+Description=Fetch your documents from Telegram
+Wants=remarkabot.timer
+
+[Service]
+EnvironmentFile=/home/root/.config/remarkabot/.env
+Environment=GOGC=off
+ExecStart=/opt/remarkabot/run.sh
+
+[Install]
+WantedBy=multi-user.target
