@@ -5,3 +5,6 @@ Wants=remarkabot.timer
 [Service]
 EnvironmentFile=$HOME/.config/remarkabot/.env
 ExecStart=/opt/remarkabot/remarkabot
+
+[Install]
+WantedBy=multi-user.target
