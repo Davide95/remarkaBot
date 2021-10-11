@@ -30,7 +30,7 @@ func main() {
 
 	bot := bot.GetBot(telegramToken)
 
-	const maxUpdates = 100
+	const maxUpdates = 10
 	for updates := bot.GetUpdates(maxUpdates); len(updates) > 0; updates = bot.GetUpdates(maxUpdates) {
 		logger.Info("Fetching new updates")
 
