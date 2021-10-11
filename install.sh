@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eux
 
+go build .
 ssh root@$1 'mkdir -p /opt/remarkabot && mkdir -p $HOME/.config/remarkabot'
 scp ./remarkabot root@$1:/opt/remarkabot/remarkabot
 scp ./systemd/remarkabot.service root@$1:/etc/systemd/user/remarkabot.service
