@@ -2,6 +2,8 @@
 
 Fetch your documents from Telegram to your Remarkable 2!
 
+This program will fetch new documents every 10 minutes for you :)
+
 ## Installation
 
 ### Telegram
@@ -24,8 +26,6 @@ Steps to install it:
 
 Each time the device is updated, you need to reinstall Remarkabot.
 Grab the opportunity to update the repo first (`git pull`).
-
-
 
 ## Acknowledgment
 
