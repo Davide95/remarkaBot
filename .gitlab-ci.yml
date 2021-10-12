@@ -5,7 +5,7 @@ stages:
   - build
 
 shellcheck:
-  image: koalaman/shellcheck:stable 
+  image: koalaman/shellcheck-alpine:stable
   stage: merge
   rules:
     - if: $CI_MERGE_REQUEST_ID
