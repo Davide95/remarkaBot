@@ -4,6 +4,14 @@ stages:
   - merge
   - build
 
+shellcheck:
+  image: koalaman/shellcheck:stable 
+  stage: merge
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+  script:
+    - shellcheck scripts/*.sh
+
 check-formatting:
   stage: merge
   rules:
