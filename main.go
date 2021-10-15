@@ -20,7 +20,7 @@ func main() {
 	logger.Info("RemarkaBot started")
 
 	telegramToken, present := os.LookupEnv("TELEGRAM_TOKEN")
-	if !present {
+	if !present || telegramToken == "" {
 		logger.Fatal("env var TELEGRAM_TOKEN missing")
 	}
 
