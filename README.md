@@ -22,6 +22,7 @@ You also need to have the Go compiler installed on your PC.
 
 Steps to install it:
 * `git clone https://gitlab.com/mollofrollo/remarkabot.git`
+* edit the `systemd/.env` file to put your Bot's token
 * `sh scripts/install.sh $RM2IP`, where `$RM2IP` is the IP of the connected Remarkable 2
 
 Each time the device is updated, you need to reinstall Remarkabot.

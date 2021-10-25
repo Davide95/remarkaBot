@@ -1,5 +1,6 @@
 [Unit]
 Description=Fetch your documents from Telegram
+After=home.mount
 After=network-online.target
 ConditionPathExists=/opt/remarkabot/remarkabot
 
