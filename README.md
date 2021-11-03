@@ -21,7 +21,7 @@ You first need to connect your reMarkable 2 to your PC to allow an SSH connectio
 You also need to have the Go compiler installed on your PC.
 
 Steps to install it:
-* `git clone https://gitlab.com/mollofrollo/remarkabot.git`
+* `git clone -c core.autocrlf=false https://gitlab.com/mollofrollo/remarkabot.git`
 * edit the `systemd/.env` file to put your Bot's token
 * `sh scripts/install.sh $RM2IP` on Linux or `.\scripts\install.bat $RM2IP` on Windows, where `$RM2IP` is the IP of the connected reMarkable 2
 
