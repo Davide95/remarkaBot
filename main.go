@@ -46,7 +46,7 @@ func main() {
 				bot.Commit(update.UpdateId)
 
 				logger.Warn("Private messages received and discarded", zap.Int64("id", message.MessageId))
-				bot.SendMessage(chat.Id, message.MessageId, "Hey!\nAdd me to a group and send me documents to see them in your Remarkable!")
+				bot.SendMessage(chat.Id, message.MessageId, "Hey!\nAdd me to a group and send me documents to see them in your reMarkable!")
 				continue
 			}
 
